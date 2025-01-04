@@ -1,108 +1,27 @@
-/* 기본 스타일 설정 */
-body {
-    font-family: 'Arial', sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: white; /* 전체 배경을 흰색으로 설정 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    color: #333;
+    box-sizing: border-box;
+    list-style: none;
 }
 
-/* 컨테이너 스타일 */
-.container {
-    display: flex;
-    flex-direction: row;
-    max-width: 1000px; /* 중앙 컨테이너의 최대 너비 설정 */
-    width: 90%; /* 작은 화면에서는 컨테이너가 화면 너비의 90%를 차지 */
-    background-color: white; /* 컨테이너 배경도 흰색으로 설정 */
-    border-radius: 15px; /* 모서리를 둥글게 */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* 더 부드러운 그림자 */
-    overflow: hidden;
-    margin: 20px; /* 화면 가장자리에서 약간의 여백 */
+:root {
+    --color-primary: #191d2b;
+    --color-secondary: #27AE60;
+    --color-white: #FFFFFF;
+    --color-black: #000;
+    --color-grey0: #f8f8f8;
+    --color-grey-1: #dbe1e8;
+    --color-grey-2: #b2becd;
+    --color-grey-3: #6c7983;
+    --color-grey-4: #454e56;
+    --color-grey-5: #2a2e35;
+    --color-grey-6: #12181b;
+    --br-sm-2: 14px;
 }
 
-/* 사진 섹션 스타일 */
-.photo-section {
-    flex: 1.5; /* 사진 섹션 비율을 높임 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0; /* 사진 섹션 배경을 밝은 회색으로 설정 */
-    padding: 30px;
-}
-
-.photo-section img {
-    width: 100%; /* 사진의 너비를 100%로 설정하여 섹션에 꽉 차게 */
-    height: auto;
-    border-radius: 15px; /* 이미지의 모서리를 부드럽게 */
-    max-height: 500px; /* 사진의 최대 높이를 설정하여 너무 커지지 않도록 함 */
-    object-fit: cover; /* 사진을 컨테이너에 맞게 채움 */
-}
-
-/* 소개 섹션 스타일 */
-.intro-section {
-    flex: 2;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.intro-section h1 {
-    margin-top: 0;
-    font-size: 2.5em;
-    color: #222; /* 조금 더 진한 회색 */
-    margin-bottom: 20px;
-}
-
-.intro-section h2 {
-    font-size: 1.6em;
-    margin-top: 20px;
-    color: #555;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #e0e0e0; /* 섹션 제목에 밑줄 */
-    padding-bottom: 5px;
-}
-
-.intro-section p {
-    font-size: 1.1em;
-    color: #666;
-    line-height: 1.8;
-    margin-top: 10px;
-    margin-bottom: 20px; /* 각 문단 사이에 공간을 줌 */
-}
-
-/* 미디어 쿼리 - 반응형 디자인 */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column; /* 작은 화면에서는 세로 배치 */
-        width: 95%; /* 폭을 줄임 */
-    }
-
-    .photo-section, .intro-section {
-        padding: 20px; /* 패딩을 줄임 */
-    }
-
-    .photo-section {
-        flex: 1; /* 사진 섹션 비율을 줄임 */
-    }
-
-    .intro-section {
-        flex: 1; /* 소개 섹션 비율을 줄임 */
-    }
-
-    .intro-section h1 {
-        font-size: 2em; /* 작은 화면에서 글씨 크기 줄임 */
-    }
-
-    .intro-section h2 {
-        font-size: 1.4em; /* 작은 화면에서 글씨 크기 줄임 */
-    }
-
-    .intro-section p {
-        font-size: 1em; /* 작은 화면에서 글씨 크기 줄임 */
-    }
+body {
+    font-family: "DM Serif Text", serif;
+    font-weight: 400;
+    font-style: normal;
 }
