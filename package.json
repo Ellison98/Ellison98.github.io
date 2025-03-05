@@ -1,5 +1,5 @@
 {
-  "name": "my-blog",
+  "name": "ellison98-github-io",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,8 +11,5 @@
   "devDependencies": {
     "typescript": "~5.7.2",
     "vite": "^6.2.0"
-  },
-  "dependencies": {
-    "three": "^0.174.0"
   }
 }
