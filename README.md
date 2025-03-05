@@ -10,11 +10,17 @@
     - 현재 디렉토리에 생성하는 이유는 GitHub Pages가 정적 파일을 호스팅하기 때문에, 프로젝트 파일을 루트 디렉토리에 두어야 한다.
     - npm create vite@latest . -- --template vanilla-ts
 
+<br/>
+
 2. 의존성 설치
     - npm install
 
+<br/>
+
 3. Dev 서버 실행 테스트
     - npm run dev
+
+<br/>
 
 4. TypeError: crypto$2.getRandomValues is not a function 오류가 뜨는 경우
     - Node.js 버전 확인 : node -v
@@ -24,6 +30,8 @@
     - nvm use --lts
 
     - node -v 로 최신버전확인
+
+<br/>
 
 5. vite 사용시 깃허브 상시 활성화를 위한 빌드하기
     - npm run build
@@ -35,3 +43,6 @@
         - git add .
         - git commit -m "Add Vite build files"
         - git push origin main
+
+<br/>
+
