@@ -35,5 +35,3 @@
         - git add .
         - git commit -m "Add Vite build files"
         - git push origin main
-
-        - 빠진 dist 부분이 있다면 굳이 코드 말고 수동으로 복사도 가능
