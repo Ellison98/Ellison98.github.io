@@ -5,5 +5,5 @@ body {
 #canvas-container {
   width: 100vw;
   height: 100vh;
-  background: #000; /* 디버깅용 검정 배경 */
+  background: #000;
 }
