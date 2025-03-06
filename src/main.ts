@@ -1,13 +1,7 @@
 import * as THREE from 'three';
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
 interface Post {
     id: number;
-    title: string;
-    content: string;
-    date: string;
-    type: string;
 }
 
 const scene = new THREE.Scene();
@@ -27,16 +21,39 @@ window.addEventListener('resize', () => {
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
 scene.add(ambientLight);
 
+const colors = [0xff0000, 0x00ff00, 0x0000ff]; // 빨강, 초록, 파랑
+let selectedColor = 0x00ff00; // 기본 색상은 초록
+
+function createColorButtons() {
+    const radius = 0.3; // 버튼 크기
+    const buttonSpacing = 1.5; // 버튼 간격
+
+    colors.forEach((color, index) => {
+        const buttonGeometry = new THREE.CircleGeometry(radius, 32);
+        const buttonMaterial = new THREE.MeshBasicMaterial({ color });
+        const button = new THREE.Mesh(buttonGeometry, buttonMaterial);
+
+        // 버튼 위치: X축에 나열, 약간 카메라 앞 위치
+        button.position.set(index * buttonSpacing - ((colors.length - 1) * buttonSpacing) / 2, -3, 5);
+        button.userData.color = color; // 버튼 색상 데이터를 저장
+
+        scene.add(button); // 씬에 버튼 추가
+    });
+}
+
+createColorButtons();
+
 async function loadPosts() {
     const response = await fetch('/posts.json');
+    if (!response.ok) throw new Error('Failed to load posts.json');
     const posts: Post[] = await response.json();
 
     const centerOffset = (posts.length - 1) * 2.5 / 2;
 
-    posts.forEach((post, index) => {
+    posts.forEach((_, index) => { // 'post' 변수를 사용하지 않음
         const geometry = new THREE.BoxGeometry(4, 2, 0.5);
         const material = new THREE.MeshBasicMaterial({
-            color: 0x00ff00,
+            color: selectedColor,
             side: THREE.DoubleSide,
             transparent: true,
             depthWrite: false,
@@ -48,45 +65,54 @@ async function loadPosts() {
         card.rotation.x = Math.PI / 4;
         card.rotation.z = Math.PI / 6;
         scene.add(card);
-
-        const loader = new FontLoader();
-        loader.load('/fonts/helvetiker_regular.typeface.json', (font) => {
-            const textGeometry = new TextGeometry(post.title, {
-                font: font,
-                size: 0.2,
-                curveSegments: 12,
-                bevelEnabled: false,
-            });
-
-            textGeometry.computeBoundingBox();
-            textGeometry.center();
-
-            // 텍스트 재추가, 검은 선 방지 설정
-            const textMaterial = new THREE.MeshBasicMaterial({
-                color: 0x000000,
-                transparent: true,
-                depthWrite: false,
-                polygonOffset: true,
-                polygonOffsetFactor: -0.1 // 카드와 겹침 방지
-            });
-            const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-            textMesh.position.set(card.position.x - 1, 0, 0.3); // z 위치 조정
-            scene.add(textMesh);
-        });
     });
 }
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+window.addEventListener('click', (event) => {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(scene.children);
+
+    if (intersects.length > 0) {
+        const clickedObject = intersects[0].object;
+
+        if (clickedObject instanceof THREE.Mesh) {
+            const geometry = clickedObject.geometry;
+
+            if (geometry instanceof THREE.CircleGeometry) {
+                selectedColor = clickedObject.userData.color;
+                console.log(`Selected color: ${selectedColor.toString(16)}`); // 선택된 색상 확인
+
+                // 모든 네모의 색상 변경
+                scene.children.forEach((child) => {
+                    if (child instanceof THREE.Mesh && child.geometry instanceof THREE.BoxGeometry) {
+                        const material = child.material as THREE.MeshBasicMaterial;
+                        material.color.set(selectedColor);
+                    }
+                });
+            }
+        }
+    }
+});
 
 camera.position.z = 10;
 
 function animate() {
     requestAnimationFrame(animate);
+
     scene.children.forEach((child) => {
-        if (child instanceof THREE.Mesh) {
+        if (child instanceof THREE.Mesh && child.geometry instanceof THREE.BoxGeometry) {
             child.rotation.y += 0.01;
         }
     });
+
     renderer.render(scene, camera);
 }
 
-loadPosts();
+loadPosts().catch(error => console.error('LoadPosts error:', error));
 animate();
