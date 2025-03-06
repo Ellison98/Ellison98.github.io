@@ -1,9 +1,11 @@
 body {
   margin: 0;
   overflow: hidden;
+  background: transparent; /* Three.js 렌더러에 배경 의존 */
 }
+
 #canvas-container {
   width: 100vw;
   height: 100vh;
-  background: #000;
+  /* background: #000 제거 (렌더러에서 관리) */
 }

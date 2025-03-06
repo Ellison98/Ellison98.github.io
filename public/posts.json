@@ -5,19 +5,5 @@
         "content": "중앙 카드 A",
         "date": "2025-03-06",
         "type": "test"
-    },
-    {
-        "id": 2,
-        "title": "카드B",
-        "content": "중앙 카드 B",
-        "date": "2025-03-07",
-        "type": "test"
-    },
-    {
-        "id": 3,
-        "title": "카드C",
-        "content": "중앙 카드 C",
-        "date": "2025-03-08",
-        "type": "test"
     }
 ]
