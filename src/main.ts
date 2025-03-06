@@ -61,11 +61,17 @@ async function loadPosts() {
             textGeometry.computeBoundingBox();
             textGeometry.center();
 
-            // 텍스트 메시를 렌더링하지 않음
-            // const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-            // const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-            // textMesh.position.set(card.position.x - 1, 0, 0.3);
-            // scene.add(textMesh);
+            // 텍스트 재추가, 검은 선 방지 설정
+            const textMaterial = new THREE.MeshBasicMaterial({
+                color: 0x000000,
+                transparent: true,
+                depthWrite: false,
+                polygonOffset: true,
+                polygonOffsetFactor: -0.1 // 카드와 겹침 방지
+            });
+            const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+            textMesh.position.set(card.position.x - 1, 0, 0.3); // z 위치 조정
+            scene.add(textMesh);
         });
     });
 }
