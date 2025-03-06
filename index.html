@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Ellison's 3D Blog</title>
-  <script type="module" crossorigin src="/assets/index-D8HNdQGu.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-BQrJrKb9.css">
+  <script type="module" crossorigin src="/src/main.ts"></script>
+  <link rel="stylesheet" crossorigin href="/src/style.css">
 </head>
 <body>
-    <div id="canvas-container"></div>
+  <div id="canvas-container"></div>
+  <div id="overlay"></div>
+  <div id="popup">
+      <span class="close-btn">&times;</span>
+      <h2 id="popup-title"></h2>
+      <p id="popup-content"></p>
+  </div>
 </body>
 </html>

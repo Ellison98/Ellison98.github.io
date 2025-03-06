@@ -2,6 +2,8 @@ import * as THREE from 'three';
 
 interface Post {
     id: number;
+    title: string;
+    content: string;
 }
 
 const scene = new THREE.Scene();
@@ -50,7 +52,7 @@ async function loadPosts() {
 
     const centerOffset = (posts.length - 1) * 2.5 / 2;
 
-    posts.forEach((_, index) => { // 'post' 변수를 사용하지 않음
+    posts.forEach((post, index) => {
         const geometry = new THREE.BoxGeometry(4, 2, 0.5);
         const material = new THREE.MeshBasicMaterial({
             color: selectedColor,
@@ -64,6 +66,7 @@ async function loadPosts() {
         card.position.set(index * 5 - centerOffset, 0, 0);
         card.rotation.x = Math.PI / 4;
         card.rotation.z = Math.PI / 6;
+        card.userData = { post }; // 게시글 데이터를 저장
         scene.add(card);
     });
 }
@@ -95,9 +98,22 @@ window.addEventListener('click', (event) => {
                         material.color.set(selectedColor);
                     }
                 });
+            } else if (geometry instanceof THREE.BoxGeometry) {
+                // 팝업 창 열기
+                const post = clickedObject.userData.post as Post;
+                document.getElementById('popup-title')!.innerText = post.title;
+                document.getElementById('popup-content')!.innerText = post.content;
+                document.getElementById('popup')!.style.display = 'block';
+                document.getElementById('overlay')!.style.display = 'block';
             }
         }
     }
+});
+
+// 팝업 창 닫기
+document.querySelector('.close-btn')!.addEventListener('click', () => {
+    document.getElementById('popup')!.style.display = 'none';
+    document.getElementById('overlay')!.style.display = 'none';
 });
 
 camera.position.z = 10;
